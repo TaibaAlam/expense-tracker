@@ -59,10 +59,6 @@ function App() {
             </div> */}
 
             <Routes>
-                <Route 
-                    path="/add-expense"
-                    element={<AddExpenseForm key={data.Id} data ={data} setData={setData}/>}
-                />
                 <Route
                     path="/"
                     element={<Dashboard />}

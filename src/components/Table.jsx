@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import PrimaryButton from "./common/PrimaryButton";
 import FilterButton from "./table/FilterButton";
 import TableCard from "./table/TableCard";
 import { categories } from "../data";
-import { useNavigate } from 'react-router-dom';
 
 const Table = ({data, setData}) => {
     const [selectedCategory, setSelectedCategory] = useState("All");
     const [total, setTotal] = useState(0);
-    const navigate = useNavigate();
     
     useEffect(()=>{
             let val = 0;
@@ -24,10 +21,6 @@ const Table = ({data, setData}) => {
         localStorage.removeItem(Id);
         let MyData = data.filter((datas) => datas.Id != Id);
         setData(MyData);
-    }
-
-    const HandleNavigate = () => {
-        navigate('/add-expense');
     }
 
     const filteredData = selectedCategory === "All"
@@ -52,32 +45,24 @@ const Table = ({data, setData}) => {
             {
                 filteredData.length !== 0 
                 ? filteredData.map((expense) => (
-                <TableCard
-                    key={expense.Id}
-                    data={expense}
-                    Remove={Remove}
-                />
-            ))
-            : selectedCategory === "All" 
-            ? <div className="flex flex-col items-center gap-5 my-20">
-                <div className="text-center space-y-1">
-                    <p className="font-bold text-3xl">No <span className="text-brand-400">Expense</span></p>
-                    <p>Add an expense to start tracking your spending.</p>
+                    <TableCard
+                        key={expense.Id}
+                        data={expense}
+                        Remove={Remove}
+                    />
+                ))
+                : selectedCategory === "All" 
+                ? <div className="flex flex-col items-center gap-5 my-20">
+                    <div className="text-center space-y-1">
+                        <p className="font-bold text-3xl">No <span className="text-brand-400">Expense</span></p>
+                        <p>Add an expense to start tracking your spending.</p>
+                    </div>
                 </div>
-                <PrimaryButton text="+ Add Expense" onClick={HandleNavigate}/>
-            </div>
-            : <div className="text-center my-20 space-y-1">
-                <p className="font-bold text-3xl">No <span className="text-brand-400">Expense</span></p>
-                <p>There are no expenses in this category.</p>
-            </div>
+                : <div className="text-center my-20 space-y-1">
+                    <p className="font-bold text-3xl">No <span className="text-brand-400">Expense</span></p>
+                    <p>There are no expenses in this category.</p>
+                </div>
             }
-            {/*filteredData.map((expense) => (
-                <TableCard
-                    key={expense.Id}
-                    data={expense}
-                    Remove={Remove}
-                />
-            ))*/}
             <div className="flex justify-end">
                 <p className="border border-black/50 rounded-full py-1 px-3">Total Expense: {total}</p>
             </div>

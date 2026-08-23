@@ -10,7 +10,7 @@ const Navbar = () => {
            <div className='w-1/4'>
                 <img src={logo} alt='Logo' className='w-32 h-8'/>
            </div>
-           <div className='w-3/4 flex justify-between items-center'>
+           <div className='w-3/4 flex justify-evenly items-center'>
                 <NavLink
                     to="/"
                     className={({ isActive }) =>
@@ -20,17 +20,6 @@ const Navbar = () => {
                     }
                 >
                     My Dashboard
-                </NavLink>
-
-                <NavLink
-                    to="/add-expense"
-                    className={({ isActive }) =>
-                        isActive
-                            ? "text-brand-300 font-bold"
-                            : "text-black"
-                    }
-                >
-                    Add Expense
                 </NavLink>
 
                 <NavLink

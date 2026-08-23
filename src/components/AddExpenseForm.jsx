@@ -7,7 +7,7 @@ import PrimaryButton from "./common/PrimaryButton";
 import SecondaryButton from "./common/SecondaryButton";
 import { useNavigate } from 'react-router-dom';
 
-const AddExpenseForm = ({data,setData}) => {
+const AddExpenseForm = ({data,setData, setAddExpense}) => {
     const [name, setName] = useState("");
     const [amount, setAmount] = useState("");
     const [category, setCategory] = useState("");
@@ -17,13 +17,9 @@ const AddExpenseForm = ({data,setData}) => {
     const handleInput = (e) => {
         e.preventDefault();
 
-        console.log('Name ->', name);
-        console.log('Amount ->', amount);
-        console.log('Category ->', category);
-
         if (!name || !amount || !category) {
-        toast.error("Please fill all the required fields");
-        return;
+            toast.error("Please fill all the required fields");
+            return;
         }
         
         localStorage.setItem(Date.now().toString(),JSON.stringify({
@@ -39,18 +35,18 @@ const AddExpenseForm = ({data,setData}) => {
         for (let i =0; i < data.length; i++){
             console.log(data[i]['name']);
         }
-        navigate('/expense-list')
-        //redirect to expense list
+        setAddExpense(false);
     };
 
     const handleClear = () => {
         setName("");
         setAmount("");
         setCategory("");
+        setAddExpense(false);
     };
 
     return (
-        <div className="w-7/12 mx-auto mt-16 rounded-3xl border border-black/30 p-6 shadow-2xl">
+        <div className="w-7/12 mx-auto mt-16 rounded-3xl border border-black/30 bg-white p-6 shadow-2xl">
 
         <div className="z-10 flex flex-col gap-5">
             {/* Heading */}
@@ -133,7 +129,7 @@ const AddExpenseForm = ({data,setData}) => {
             {/* Create Expense Button */}
             <div className="flex justify-end gap-6">
                 <PrimaryButton text="Create" onClick={handleInput}/>
-                <SecondaryButton text="Clear" onClick={handleClear} />
+                <SecondaryButton text="Cancel" onClick={handleClear} />
             </div>
         </div>
         </div>

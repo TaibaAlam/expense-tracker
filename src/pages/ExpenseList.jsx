@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Table from '../components/Table';
 import SecondaryButton from '../components/common/SecondaryButton';
+import AddExpenseForm from '../components/AddExpenseForm';
 
 const ExpenseList = ({data, setData}) => {
     const [addExpense, setAddExpense] = useState(false);
@@ -10,7 +11,15 @@ const ExpenseList = ({data, setData}) => {
                 <SecondaryButton text="+ Add Expense" onClick={()=>setAddExpense(!addExpense)} />
             </div>
             <Table key={data.Id} data ={data} setData={setData}/>
-            {/* {addExpense && <AddExpenseModal/>} */}
+            {addExpense && (
+                <div className="fixed inset-0 bg-white/50 flex justify-center items-center z-50">
+                    <AddExpenseForm
+                        data={data}
+                        setData={setData}
+                        setAddExpense={setAddExpense}
+                    />
+                </div>
+            )}
         </div>
     )
 }
