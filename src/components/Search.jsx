@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { IoSearch } from "react-icons/io5";
 
 function Search({data,setData,all,setAll}){
 
@@ -39,10 +40,11 @@ function Search({data,setData,all,setAll}){
     }
 
     return(
-       <div className="w-3/5 bg-[#1a2b3c] rounded-lg p-2 flex flex-col gap-2 border border-white/50">
-        <h1 className="text-white text-2xl">Search</h1>
-        <input type="text" placeholder="Search" onChange={(e)=> setName(e.target.value)} className="p-1 bg-transparent text-white w-3/4 rounded-lg border border-white/50"/>
-        <button className="w-1/4 p-1 rounded-md bg-[#619EFF] text-white cursor-pointer" onClick={HandleSearch}>Search</button>
+       <div className="w-3/5 relative">
+            <input type="text" placeholder="Search" onChange={(e)=> setName(e.target.value)} className="p-1 pl-3 bg-transparent rounded-lg border border-black/50 outline-none w-full"/>
+            <div onClick={HandleSearch} className="absolute right-4 top-2">
+                <IoSearch/>
+            </div>
        </div>
     )
 }

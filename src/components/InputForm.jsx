@@ -1,29 +1,30 @@
-import Table from "./Table.jsx"
-import { useEffect, useRef,useState } from "react"
+import { useState } from "react"
 
-const InputForm = ({settotal,total,data,setData}) => {
+const InputForm = ({setTotal,total,data,setData}) => {
     const [amount,setAmount] = useState()
     const [name,setName] = useState("")
+    const [category, setCategory] = useState("");
 
     const keys = Object.keys(localStorage);
 
     const handleInput = (e) => {
         e.preventDefault();
         const val = total + amount;
-        settotal(val);
+        setTotal(val);
 
         localStorage.setItem(Date.now().toString(),JSON.stringify({
             Id : Date.now(),
             name: name,
             amount: amount,
+            category: category,
         }));
 
-        //console.log(Id.toString());
         data = [...data,JSON.parse(localStorage.getItem(Date.now().toString()))];
         setData(data);
 
         setName("");
         setAmount("");
+        setCategory("");
     }
 
     
@@ -37,6 +38,39 @@ const InputForm = ({settotal,total,data,setData}) => {
                     </h1>
                     <input type="text" value = {name} placeholder="Enter Item Name" className="p-2 rounded-lg h-9 text-white bg-transparent border border-white/20 w-full" onChange={(e) => {setName(e.target.value)}}/>
                     <input type="number" value = {amount}  placeholder="Enter Amount" className="p-2 rounded-lg h-9 text-white bg-transparent border border-white/20  w-full" onChange={(e) => {setAmount(Number(e.target.value))}}/>
+                    <select
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                        className="p-2 rounded-lg h-9 text-white bg-transparent border border-white/20 w-full"
+                    >
+                        <option value="" disabled className="text-black">
+                            Select Category
+                        </option>
+
+                        <option value="Food" className="text-black">
+                            Food
+                        </option>
+
+                        <option value="Travelling" className="text-black">
+                            Travelling
+                        </option>
+
+                        <option value="Fashion" className="text-black">
+                            Fashion
+                        </option>
+
+                        <option value="Shopping" className="text-black">
+                            Shopping
+                        </option>
+
+                        <option value="Education" className="text-black">
+                            Education
+                        </option>
+
+                        <option value="Entertainment" className="text-black">
+                            Entertainment
+                        </option>
+                    </select>
                     <button className="p-2 rounded-full bg-[#619EFF] w-full text-white cursor-pointer" onClick={handleInput}>
                         + Create Expense
                     </button>
