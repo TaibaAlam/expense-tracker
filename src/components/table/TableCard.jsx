@@ -24,10 +24,10 @@ const TableCard = ({data, Remove}) => {
     }
     return (
         <>
-            <div className="border border-black-40 p-6 rounded-xl flex">
-                <div className="w-3/4 space-y-2">
+            <div className="border border-black-40 p-6 rounded-xl flex flex-row">
+                <div className="w-3/4 space-y-2 flex-col">
                     <div className="text-2xl font-bold">{data.name}</div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex md:flex-row md:justify-between flex-col items-baseline-last">
                         <div className="text-sm"><span className="font-bold">Amount:</span> ₹{data.amount}</div>
                         <div className="text-sm"><span className="font-bold">Category:</span> {data.category}</div>
                         <div className="text-sm"><span className="font-bold">Date:</span> {formatDate(data.Id)}</div>
@@ -46,6 +46,7 @@ const TableCard = ({data, Remove}) => {
                         <div className="flex justify-center items-center gap-4">
                             <PrimaryButton text='Yes, Delete' onClick={handleDelete} />
                             <SecondaryButton text='Cancel' onClick={()=> setShowModal(false)} />
+                                {console.log(data.name)}
                         </div>
                     </div>
                 </div>

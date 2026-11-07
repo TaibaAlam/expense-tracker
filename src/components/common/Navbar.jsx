@@ -6,7 +6,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 const Navbar = () => {
     const router = useNavigate();
     return (
-        <div className='px-10 p-2 border border-black/30 shadow shadow-black/30 w-7/12 mx-auto mt-6 rounded-full flex justify-between gap-5'>
+        <div className='md:px-10 px-5 p-2 border border-black/30 shadow shadow-black/30 md:w-7/12 w-[95%] mx-auto mt-6 rounded-full flex justify-between md:gap-5'>
            <div className='w-1/4'>
                 <img src={logo} alt='Logo' className='w-32 h-8'/>
            </div>

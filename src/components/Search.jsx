@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react"
 import { IoSearch } from "react-icons/io5";
+import {useSelector, useDispatch} from "react-redux";
+import { setData } from "../features/Slice";
 
-function Search({data,setData,all,setAll}){
+function Search(){
 
     const [name,setName] = useState("");
     let keys = Object.keys(localStorage);
 
-    useEffect(()=>{
+    {useEffect(()=>{
         let updatedData =[];
             keys.map((key)=>{
             updatedData = [...updatedData,JSON.parse(localStorage.getItem(key))];
             })
-            setAll(updatedData);
-    },[localStorage.length])
+            dispatch(setData(updatedData));
+            },[localStorage.length])
 
     useEffect(()=>{
         if(name == ""){
@@ -21,22 +23,24 @@ function Search({data,setData,all,setAll}){
             updatedData = [...updatedData,JSON.parse(localStorage.getItem(key))];
         })
 
-        setData(updatedData);
+        dispatch(setData(updatedData));
         }
         if(name != ""){
-             const Arr = all.filter((datas)=>((datas.name).toLowerCase()).includes(name.toLowerCase()));
+             const Arr = data.filter((datas)=>((datas.name).toLowerCase()).includes(name.toLowerCase()));
              console.log(Arr);
-             setData(Arr);
+             dispatch(setData(Arr));
              console.log("Hello");
             //HandleSearch;
         }
         
-    },[name,all])
+    },[name])}
+    const data = useSelector((state) => state.data);
+    const dispatch = useDispatch();
 
     const HandleSearch = () => {
         const Arr = data.filter((datas)=>((datas.name).toLowerCase()).includes(name.toLowerCase()));
         console.log(Arr);
-        setData(Arr);
+        dispatch(setData(Arr));
     }
 
     return(

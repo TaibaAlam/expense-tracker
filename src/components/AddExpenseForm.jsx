@@ -6,12 +6,18 @@ import { categoryOptions } from "../data";
 import PrimaryButton from "./common/PrimaryButton";
 import SecondaryButton from "./common/SecondaryButton";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { addExpense } from "../features/Slice";
 
-const AddExpenseForm = ({data,setData, setAddExpense}) => {
+const AddExpenseForm = ({/*data,setData, */setAddExpense}) => {
     const [name, setName] = useState("");
     const [amount, setAmount] = useState("");
     const [category, setCategory] = useState("");
     const navigate = useNavigate();
+
+    const data = useSelector((state) => state.data)
+    const dispatch = useDispatch();
+    
     //const [data, setData] = useState([]);
 
     const handleInput = (e) => {
@@ -22,18 +28,27 @@ const AddExpenseForm = ({data,setData, setAddExpense}) => {
             return;
         }
         
-        localStorage.setItem(Date.now().toString(),JSON.stringify({
+        const temp = {
             Id : Date.now(),
             name: name,
             amount: amount,
             category: category
-        }));
+        }
+        /*localStorage.setItem(Date.now().toString(),JSON.stringify({
+            Id : Date.now(),
+            name: name,
+            amount: amount,
+            category: category
+        }));*/
+        localStorage.setItem((temp.Id).toString(), JSON.stringify(temp))
 
-        data = [...data,JSON.parse(localStorage.getItem(Date.now().toString()))];
-        setData(data);
+        /*data = [...data,JSON.parse(localStorage.getItem(Date.now().toString()))];
+        setData(data);*/
+
+        dispatch(addExpense(temp));
         toast.success("Expense successfully added.");
         for (let i =0; i < data.length; i++){
-            console.log(data[i]['name']);
+            //console.log(data[i]['name']);
         }
         setAddExpense(false);
     };
@@ -46,7 +61,7 @@ const AddExpenseForm = ({data,setData, setAddExpense}) => {
     };
 
     return (
-        <div className="w-7/12 mx-auto mt-16 rounded-3xl border border-black/30 bg-white p-6 shadow-2xl">
+        <div className="md:w-7/12 w-[90%] mx-auto mt-16 rounded-3xl border border-black/30 bg-white p-6 shadow-2xl">
 
         <div className="z-10 flex flex-col gap-5">
             {/* Heading */}
